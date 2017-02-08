@@ -14,12 +14,12 @@
 package cn.ucai.superwechat.ui;
 
 import android.app.ProgressDialog;
-import android.database.CursorJoiner;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMError;
@@ -44,7 +44,7 @@ import cn.ucai.superwechat.utils.ResultUtils;
  * register screen
  */
 public class RegisterActivity extends BaseActivity {
-  private static final String TAG = RegisterActivity.class.getSimpleName();
+    private static final String TAG = RegisterActivity.class.getSimpleName();
 
     @BindView(R.id.et_username)
     EditText etUsername;
@@ -62,6 +62,8 @@ public class RegisterActivity extends BaseActivity {
     String confirm_pwd;
     String usernick;
     ProgressDialog pd;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,8 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.em_activity_register);
         ButterKnife.bind(this);
         ivBack.setVisibility(View.VISIBLE);
-
+        tvTitle.setVisibility(View.VISIBLE);
+        tvTitle.setText(R.string.register);
     }
 
     public void register() {
@@ -153,12 +156,12 @@ public class RegisterActivity extends BaseActivity {
         NetDao.register(this, username, usernick, pwd, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                L.e(TAG,"s=="+s.toString());
+                L.e(TAG, "s==" + s.toString());
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, null);
-                    L.e(TAG,"result=="+result);
+                    L.e(TAG, "result==" + result);
                     if (result != null) {
-                        L.e(TAG,"result.RetMsg=="+result.isRetMsg());
+                        L.e(TAG, "result.RetMsg==" + result.isRetMsg());
                         if (result.isRetMsg()) {
                             //注册成功后调用环信的注册
                             registerEMservice();
@@ -191,12 +194,12 @@ public class RegisterActivity extends BaseActivity {
         NetDao.unRegister(this, username, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String result) {
-                L.e(TAG,"result="+result);
+                L.e(TAG, "result=" + result);
             }
 
             @Override
             public void onError(String error) {
-                L.e(TAG,"error="+error);
+                L.e(TAG, "error=" + error);
             }
         });
     }
@@ -205,8 +208,15 @@ public class RegisterActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.bt_register)
+    @OnClick({R.id.bt_register,R.id.iv_back})
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.bt_register:
                 register();
+                break;
+            case R.id.iv_back:
+                MFGT.finish(this);
+                break;
+        }
     }
 }
