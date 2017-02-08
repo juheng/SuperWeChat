@@ -18,6 +18,8 @@
     <color name="text_hint">#353535</color>
     <color name="text_color_hint">#DDDDDD</color>
     <color name="text_wenti">#7d96cc</color>
+    <color name="login">#f402ff15</color>
+    <color name="sign_up">#c7c7c7</color>
 
     <!-- tab -->
     <color name="tab_bottom_bg_color">#fc1e2327</color>
