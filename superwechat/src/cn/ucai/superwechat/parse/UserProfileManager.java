@@ -174,6 +174,10 @@ public class UserProfileManager {
 					Result result= ResultUtils.getResultFromJson(s, User.class);
 					if(result!=null&&result.isRetMsg()){
 						L.e(TAG,"result="+result.toString());
+						User user= (User) result.getRetData();
+						SuperWeChatHelper.getInstance().saveAappContact(user);
+						setCurrentUserAvatar(user.getAvatar());
+						setCurrentUserNick(user.getMUserNick());
 					}
 				}
 			}
