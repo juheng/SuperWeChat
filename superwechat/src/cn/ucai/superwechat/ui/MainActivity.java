@@ -51,17 +51,21 @@ import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.runtimepermissions.PermissionsManager;
 import cn.ucai.superwechat.runtimepermissions.PermissionsResultAction;
+import cn.ucai.superwechat.utils.L;
+
+import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import java.util.List;
+import java.util.Map;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity {
 
-	protected static final String TAG = "MainActivity";
+	protected static final String TAG = MainActivity.class.getSimpleName();
 	// textview for unread message count
 	private TextView unreadLabel;
 	// textview for unread event message
@@ -141,6 +145,11 @@ public class MainActivity extends BaseActivity {
 		EMClient.getInstance().contactManager().setContactListener(new MyContactListener());
 		//debug purpose only
         registerInternalDebugReceiver();
+
+		String username=EMClient.getInstance().getCurrentUser();
+		L.e(TAG,"username="+username);
+		Map<String,User>map=SuperWeChatHelper.getInstance().getAppContactList();
+		L.e(TAG,"map="+map.get(username));
 	}
 
 	@TargetApi(23)
