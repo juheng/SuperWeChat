@@ -20,9 +20,10 @@ import android.content.Context;
 
 import cn.ucai.superwechat.domain.RobotUser;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.domain.User;
 
 public class UserDao {
-	public static final String TABLE_NAME = "uers";
+	public static final String TABLE_NAME=	"users";
 	public static final String COLUMN_NAME_ID = "username";
 	public static final String COLUMN_NAME_NICK = "nick";
 	public static final String COLUMN_NAME_AVATAR = "avatar";
@@ -35,8 +36,16 @@ public class UserDao {
 	public static final String ROBOT_COLUMN_NAME_ID = "username";
 	public static final String ROBOT_COLUMN_NAME_NICK = "nick";
 	public static final String ROBOT_COLUMN_NAME_AVATAR = "avatar";
-	
-	
+
+	public static final String USER_TABLE_NAME=	"t_superwechat_user";
+	public static final String USER_COLUMN_NAME = "m_user_name";					//用户账号
+	public static final String USER_COLUMN_NAME_NICK = "m_user_nick";					//用户昵称
+	public static final String USER_COLUMN_NAME_AVATAR_ID="m_avatar_id";					//主键
+	public static final String USER_COLUMN_NAME_AVATAR_SUFFIX = "m_avatar_suffix";              //头像后缀名
+	public static final String USER_COLUMN_NAME_AVATAR_PATH = "m_avatar_path";				//保存路径
+	public static final String USER_COLUMN_NAME_AVATAR_TYPE= "m_avatar_type";				//头像类型：\n0:用户头像\n1:群组头像
+	public static final String USER_COLUMN_NAME_UPDATE_TIME= "m_avatar_last_update_time";	//最后更新时间
+
 	public UserDao(Context context) {
 	}
 
@@ -98,4 +107,38 @@ public class UserDao {
     public void saveRobotUser(List<RobotUser> robotList){
     	SuperWeChatDBManager.getInstance().saveRobotList(robotList);
     }
+	/**
+	 * save contact list
+	 *
+	 * @param contactList
+	 */
+	public void saveAppContactList(List<User> contactList) {
+		SuperWeChatDBManager.getInstance().saveAppContactList(contactList);
+	}
+
+	/**
+	 * get contact list
+	 *
+	 * @return
+	 */
+	public Map<String, User> getAppContactList() {
+
+		return SuperWeChatDBManager.getInstance().getAppContactList();
+	}
+
+	/**
+	 * delete a contact
+	 * @param username
+	 */
+	public void deleteAppContact(String username){
+		SuperWeChatDBManager.getInstance().deleteAppContact(username);
+	}
+
+	/**
+	 * save a contact
+	 * @param user
+	 */
+	public void saveAppContact(User user){
+		SuperWeChatDBManager.getInstance().saveAppContact(user);
+	}
 }

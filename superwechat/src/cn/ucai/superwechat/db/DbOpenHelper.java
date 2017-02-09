@@ -53,6 +53,16 @@ public class DbOpenHelper extends SQLiteOpenHelper{
             + UserDao.PREF_TABLE_NAME + " ("
             + UserDao.COLUMN_NAME_DISABLED_GROUPS + " TEXT, "
             + UserDao.COLUMN_NAME_DISABLED_IDS + " TEXT);";
+
+	private static final String USER_TABLE_CREATE = "CREATE TABLE "
+			+ UserDao.USER_TABLE_NAME + " ("
+			+ UserDao.USER_COLUMN_NAME + " TEXT PRIMARY KEY, "
+			+ UserDao.USER_COLUMN_NAME_NICK + " TEXT, "
+			+ UserDao.USER_COLUMN_NAME_AVATAR_ID + " INTEGER, "
+			+ UserDao.USER_COLUMN_NAME_AVATAR_SUFFIX + " TEXT, "
+			+ UserDao.USER_COLUMN_NAME_AVATAR_PATH + " TEXT, "
+			+ UserDao.USER_COLUMN_NAME_AVATAR_TYPE + " INTEGER, "
+			+ UserDao.USER_COLUMN_NAME_UPDATE_TIME + " TEXT);";
 	
 	private DbOpenHelper(Context context) {
 		super(context, getUserDatabaseName(), null, DATABASE_VERSION);
@@ -75,13 +85,14 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 		db.execSQL(INIVTE_MESSAGE_TABLE_CREATE);
 		db.execSQL(CREATE_PREF_TABLE);
 		db.execSQL(ROBOT_TABLE_CREATE);
-		
+		db.execSQL(USER_TABLE_CREATE);
+
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if(oldVersion < 2){
-		    db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME +" ADD COLUMN "+ 
+		    db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME +" ADD COLUMN "+
 		            UserDao.COLUMN_NAME_AVATAR + " TEXT ;");
 		}
 		
