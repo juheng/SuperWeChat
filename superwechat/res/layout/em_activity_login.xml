@@ -85,7 +85,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="220dp"
             android:background="@color/sign_up"
-            android:text="@string/login_btn_action"
+            android:text="注册"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>
