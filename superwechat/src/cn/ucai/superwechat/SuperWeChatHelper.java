@@ -1329,7 +1329,7 @@ public class SuperWeChatHelper {
     /**
      * save single contact
      */
-    public void saveAappContact(User user) {
+    public void saveAppContact(User user) {
         getAppContactList().put(user.getMUserName(), user);
         demoModel.saveAppContact(user);
     }

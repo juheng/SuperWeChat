@@ -2,7 +2,6 @@ package cn.ucai.superwechat.parse;
 
 import android.app.Activity;
 import android.content.Context;
-import android.nfc.Tag;
 
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
@@ -173,9 +172,10 @@ public class UserProfileManager {
 				if(s!=null){
 					Result result= ResultUtils.getResultFromJson(s, User.class);
 					if(result!=null&&result.isRetMsg()){
-						L.e(TAG,"result="+result.toString());
+						L.e(TAG,"result======"+result.toString());
 						User user= (User) result.getRetData();
-						SuperWeChatHelper.getInstance().saveAappContact(user);
+						L.e(TAG,"user======"+user.toString());
+						SuperWeChatHelper.getInstance().saveAppContact(user);
 						setCurrentUserAvatar(user.getAvatar());
 						setCurrentUserNick(user.getMUserNick());
 					}

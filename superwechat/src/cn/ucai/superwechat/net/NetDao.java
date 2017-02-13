@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.hyphenate.easeui.domain.User;
 
+import java.io.File;
+import java.lang.reflect.Array;
+
 import cn.ucai.superwechat.I;
 import cn.ucai.superwechat.utils.MD5;
 import cn.ucai.superwechat.utils.OkHttpUtils;
@@ -48,5 +51,25 @@ OkHttpUtils<String>utils=new OkHttpUtils<>(context);
                 .targetClass(String.class)
                 .execute(listener);
     }
+    public static void updateNick(Context context,String userName, String userNick,
+                                  OkHttpUtils.OnCompleteListener<String>listener){
+        OkHttpUtils<String>utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.USER_NAME,userName)
+                .addParam(I.User.NICK,userNick)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+   /* public static void updateAvatar(Context context,String userName, File file,
+                                  OkHttpUtils.OnCompleteListener<String>listener){
+        OkHttpUtils<String>utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.USER_NAME,userName)
+                .addParam(I.AVATAR_TYPE,I.AVATAR_SUFFIX_JPG)
+                .addParam(I.MSG_UPLOAD_AVATAR_FAIL,file)
+                .post()
+                .targetClass(String.class)
+                .execute(listener);
+    }*/
 
 }
