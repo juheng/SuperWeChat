@@ -160,11 +160,8 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
                                 break;
                             case 1:
                                 Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
-                                L.e(TAG,"pickIntent1======"+pickIntent.toString());
-                                pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image*//*");
-                                L.e(TAG,"pickIntent2======"+pickIntent.toString());
+                               pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                                 startActivityForResult(pickIntent, REQUESTCODE_PICK);
-                                L.e(TAG,"pickIntent3======"+pickIntent.toString());
                                 break;
                             default:
                                 break;
@@ -173,9 +170,8 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
                 });
         builder.create().show();
     }
-
-    private File saveBitmapFile(Intent pictata) {
-        Bundle extras = pictata.getExtras();
+    private File saveBitmapFile(Intent picData) {
+        Bundle extras = picData.getExtras();
         if (extras != null) {
             Bitmap bitmap = extras.getParcelable("data");
             String imagePath = EaseImageUtils.getImagePath(EMClient.getInstance().getCurrentUser()

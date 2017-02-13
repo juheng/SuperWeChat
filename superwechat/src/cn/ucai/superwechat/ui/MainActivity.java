@@ -70,6 +70,7 @@ import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.runtimepermissions.PermissionsManager;
 import cn.ucai.superwechat.runtimepermissions.PermissionsResultAction;
 import cn.ucai.superwechat.utils.L;
+import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.widget.DMTabHost;
 import cn.ucai.superwechat.widget.DMTabTextView;
 import cn.ucai.superwechat.widget.MFViewPager;
@@ -149,6 +150,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         Map<String, User> map = SuperWeChatHelper.getInstance().getAppContactList();
         L.e(TAG, "map=" + map.get(username));
     }
+
 
     private void initFragment() {
         conversationListFragment = new ConversationListFragment();
@@ -239,7 +241,19 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         titlePopup.addAction(new ActionItem(this,R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
         titlePopup.addAction(new ActionItem(this,R.string.menu_qrcode,R.drawable.icon_menu_sao));
         titlePopup.addAction(new ActionItem(this,R.string.menu_money,R.drawable.icon_menu_money));
+        titlePopup.setItemOnClickListener(listener);
     }
+    TitlePopup.OnItemOnClickListener listener=new TitlePopup.OnItemOnClickListener() {
+        @Override
+        public void onItemClick(ActionItem item, int position) {
+            L.e(TAG,"item="+item+",position="+position);
+            switch (position){
+                case 1:
+                    MFGT.gotoAddContact(MainActivity.this);
+                    break;
+            }
+        }
+    };
 
     /**
      * on tab clicked
