@@ -47,6 +47,14 @@
         android:singleLine="true"
         android:textColorHint="#b3b3b3"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/tv_serach_no"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="没有此用户"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/ll_user"
