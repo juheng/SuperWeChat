@@ -33,6 +33,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,6 +73,9 @@ import cn.ucai.superwechat.utils.L;
 import cn.ucai.superwechat.widget.DMTabHost;
 import cn.ucai.superwechat.widget.DMTabTextView;
 import cn.ucai.superwechat.widget.MFViewPager;
+import cn.ucai.superwechat.widget.TitleMenu.ActionItem;
+import cn.ucai.superwechat.widget.TitleMenu.TitlePopup;
+
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
@@ -101,6 +105,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     private boolean isCurrentAccountRemoved = false;
 
     MainTabAdpter adapter;
+    TitlePopup titlePopup;
 
 
     /**
@@ -228,6 +233,12 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         mTabs[0].setSelected(true);*/
         tvLeft.setVisibility(View.VISIBLE);
         ivRight.setVisibility(View.VISIBLE);
+        titlePopup=new TitlePopup(this, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        titlePopup.addAction(new ActionItem(this,R.string.menu_groupchat,R.drawable.icon_menu_group));
+        titlePopup.addAction(new ActionItem(this,R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
+        titlePopup.addAction(new ActionItem(this,R.string.menu_qrcode,R.drawable.icon_menu_sao));
+        titlePopup.addAction(new ActionItem(this,R.string.menu_money,R.drawable.icon_menu_money));
     }
 
     /**
@@ -361,6 +372,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
 
     @OnClick(R.id.iv_right)
     public void onClick() {
+        titlePopup.show(findViewById(R.id.layout_title));
     }
 
     @Override
@@ -380,7 +392,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
 
     @Override
     public void onCheckedChange(int checkedPosition, boolean byUser) {
-        layoutViewpage.setCurrentItem(checkedPosition,false);
+        layoutViewpage.setCurrentItem(checkedPosition, false);
     }
 
     public class MyContactListener implements EMContactListener {
