@@ -33,11 +33,14 @@ import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.domain.Result;
 import cn.ucai.superwechat.net.NetDao;
+import cn.ucai.superwechat.utils.L;
 import cn.ucai.superwechat.utils.MFGT;
 import cn.ucai.superwechat.utils.OkHttpUtils;
 import cn.ucai.superwechat.utils.ResultUtils;
 
 public class AddContactActivity extends BaseActivity {
+
+    private static final String TAG=AddContactActivity.class.getSimpleName();
     @BindView(R.id.tv_serach_no)
     TextView tvSerachNo;
     private EditText editText;
@@ -110,8 +113,10 @@ public class AddContactActivity extends BaseActivity {
                     if (result != null) {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
+                            L.e(TAG,"USER1="+user.toString());
                             if (user != null) {
                                 isSuccess=true;
+                                L.e(TAG,"USER2="+user.toString());
                                 MFGT.gotoFirent(AddContactActivity.this, user);
                             }
                         }
