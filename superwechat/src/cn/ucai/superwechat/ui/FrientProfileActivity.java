@@ -87,4 +87,9 @@ public class FrientProfileActivity extends BaseActivity {
     public void onClick() {
         MFGT.finish(this);
     }
+
+    @OnClick(R.id.tv_add_contact)
+    public void addContact() {
+        MFGT.gotoAddFrient(this,user);
+    }
 }

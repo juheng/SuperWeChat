@@ -28,7 +28,6 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
@@ -71,8 +70,8 @@ import cn.ucai.superwechat.runtimepermissions.PermissionsManager;
 import cn.ucai.superwechat.runtimepermissions.PermissionsResultAction;
 import cn.ucai.superwechat.utils.L;
 import cn.ucai.superwechat.utils.MFGT;
+import cn.ucai.superwechat.widget.DMTabButton;
 import cn.ucai.superwechat.widget.DMTabHost;
-import cn.ucai.superwechat.widget.DMTabTextView;
 import cn.ucai.superwechat.widget.MFViewPager;
 import cn.ucai.superwechat.widget.TitleMenu.ActionItem;
 import cn.ucai.superwechat.widget.TitleMenu.TitlePopup;
@@ -90,6 +89,8 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     MFViewPager layoutViewpage;
     @BindView(R.id.layout_tabhost)
     DMTabHost layoutTabhost;
+    @BindView(R.id.bt_contact)
+    DMTabButton btContact;
     // textview for unread message count
     //private TextView unreadLabel;
     // textview for unread event message
@@ -235,19 +236,20 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         mTabs[0].setSelected(true);*/
         tvLeft.setVisibility(View.VISIBLE);
         ivRight.setVisibility(View.VISIBLE);
-        titlePopup=new TitlePopup(this, ViewGroup.LayoutParams.WRAP_CONTENT,
+        titlePopup = new TitlePopup(this, ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        titlePopup.addAction(new ActionItem(this,R.string.menu_groupchat,R.drawable.icon_menu_group));
-        titlePopup.addAction(new ActionItem(this,R.string.menu_addfriend,R.drawable.icon_menu_addfriend));
-        titlePopup.addAction(new ActionItem(this,R.string.menu_qrcode,R.drawable.icon_menu_sao));
-        titlePopup.addAction(new ActionItem(this,R.string.menu_money,R.drawable.icon_menu_money));
+        titlePopup.addAction(new ActionItem(this, R.string.menu_groupchat, R.drawable.icon_menu_group));
+        titlePopup.addAction(new ActionItem(this, R.string.menu_addfriend, R.drawable.icon_menu_addfriend));
+        titlePopup.addAction(new ActionItem(this, R.string.menu_qrcode, R.drawable.icon_menu_sao));
+        titlePopup.addAction(new ActionItem(this, R.string.menu_money, R.drawable.icon_menu_money));
         titlePopup.setItemOnClickListener(listener);
     }
-    TitlePopup.OnItemOnClickListener listener=new TitlePopup.OnItemOnClickListener() {
+
+    TitlePopup.OnItemOnClickListener listener = new TitlePopup.OnItemOnClickListener() {
         @Override
         public void onItemClick(ActionItem item, int position) {
-            L.e(TAG,"item="+item+",position="+position);
-            switch (position){
+            L.e(TAG, "item=" + item + ",position=" + position);
+            switch (position) {
                 case 1:
                     MFGT.gotoAddContact(MainActivity.this);
                     break;
@@ -468,9 +470,9 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
      * update unread message count
      */
     public void updateUnreadLabel() {
-        /*int count = getUnreadMsgCountTotal();
+       /* int count = getUnreadMsgCountTotal();
         if (count > 0) {
-            unreadLabel.setText(String.valueOf(count));
+            btContact.setText(String.valueOf(count));
             unreadLabel.setVisibility(View.VISIBLE);
         } else {
             unreadLabel.setVisibility(View.INVISIBLE);
