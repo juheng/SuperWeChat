@@ -61,6 +61,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			holder.avator = (ImageView) convertView.findViewById(R.id.avatar);
 			holder.reason = (TextView) convertView.findViewById(R.id.message);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.nick = (TextView) convertView.findViewById(R.id.nick);
 			holder.agree = (Button) convertView.findViewById(R.id.agree);
 			holder.status = (TextView) convertView.findViewById(R.id.user_state);
 			holder.groupContainer = (LinearLayout) convertView.findViewById(R.id.ll_group);
@@ -98,7 +99,8 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
 			EaseUserUtils.setAppUserAvatarbyPath(context,msg.getAvatar(),holder.avator);
 			holder.reason.setText(msg.getReason());
-			holder.name.setText(msg.getUsernick());
+			holder.name.setText(msg.getFrom());
+			holder.nick.setText(msg.getUsernick());
 			// holder.time.setText(DateUtils.getTimestampString(new
 			// Date(msg.getTime())));
 			if (msg.getStatus() == InviteMesageStatus.BEAGREED) {
@@ -292,6 +294,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 	}
 
 	private static class ViewHolder {
+		TextView nick;
 		LinearLayout layoutInvite;
 		ImageView avator;
 		TextView name;

@@ -60,25 +60,26 @@ public class FrientProfileActivity extends BaseActivity {
         if (user != null) {
             showUserInfo();
         } else {
-            String username=getIntent().getStringExtra(I.User.USER_NAME);
-            if(username==null){
+            String username = getIntent().getStringExtra(I.User.USER_NAME);
+            if (username == null) {
                 MFGT.finish(this);
-            }else{
+            } else {
                 syncUserInfo(username);
             }
         }
     }
-    private void syncUserInfo(String username){
+
+    private void syncUserInfo(String username) {
         NetDao.getUserInfoByUsername(this, username, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                if(s!=null){
-                    Result result= ResultUtils.getResultFromJson(s,User.class);
-                    if(result!=null){
-                        if(result.isRetMsg()){
-                            User u= (User) result.getRetData();
-                            if(u!=null){
-                                user=u;
+                if (s != null) {
+                    Result result = ResultUtils.getResultFromJson(s, User.class);
+                    if (result != null) {
+                        if (result.isRetMsg()) {
+                            User u = (User) result.getRetData();
+                            if (u != null) {
+                                user = u;
                                 showUserInfo();
                             }
                         }
@@ -124,6 +125,11 @@ public class FrientProfileActivity extends BaseActivity {
 
     @OnClick(R.id.tv_add_contact)
     public void addContact() {
-        MFGT.gotoAddFrient(this,user);
+        MFGT.gotoAddFrient(this, user);
+    }
+
+    @OnClick(R.id.tv_send_msg)
+    public void sendMsg() {
+        MFGT.gotoChatActivity(this,user);
     }
 }

@@ -13,6 +13,8 @@
  */
 package cn.ucai.superwechat.domain;
 
+import cn.ucai.superwechat.utils.L;
+
 public class InviteMessage {
 	private String from;
 	private long time;
@@ -148,7 +150,8 @@ public class InviteMessage {
 		GROUPINVITATION_DECLINED
 	}
 	public String getAvatar(){
-		String path = "http://101.251.196.90:8000/SuperWeChatServerV2.0/downloadAvatar?name_or_hxid="+getFrom()+"&avatarType=user_avatar&m_avatar_suffix="+getAvatarSuffix()+"&updatetime="+getAvatarTime();
+		String path = "http://101.251.196.90:8000/SuperWeChatServerV2.0/downloadAvatar?name_or_hxid="+getFrom()+"&avatarType=user_avatar&m_avatar_suffix="+getAvatarSuffix();
+		L.e("uu","path===="+path);
 		return path;
 	}
 }
