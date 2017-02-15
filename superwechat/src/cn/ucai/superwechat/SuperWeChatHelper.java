@@ -678,7 +678,7 @@ public class SuperWeChatHelper {
                     new OkHttpUtils.OnCompleteListener<String>() {
                         @Override
                         public void onSuccess(String s) {
-                            L.e(TAG,"onContactAdded  s="+s);
+                            L.e(TAG,"onContactAdded。。。s="+s);
                             if(s!=null){
                                 Result result=ResultUtils.getResultFromJson(s,User.class);
                                 if(result!=null){
