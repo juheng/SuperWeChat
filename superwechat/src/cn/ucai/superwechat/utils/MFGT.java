@@ -91,6 +91,6 @@ public class MFGT {
     }
 
     public static void gotoMainActivity(Activity activity) {
-        startActivity(activity, MainActivity.class);
+        startActivity(activity,new Intent(activity,MainActivity.class).putExtra("right",true));
     }
 }

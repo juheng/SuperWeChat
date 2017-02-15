@@ -477,7 +477,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         } else {
             unreadLabel.setVisibility(View.INVISIBLE);
         }*/
-        L.e(TAG,"updateUnreadLabel(),count="+count);
+        L.e(TAG,"updateUnreadLabel(),count=========="+count);
         if (count > 1) {
             layoutTabhost.setUnreadCount(1, count);
         }else if(count==1){
@@ -644,6 +644,11 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         showExceptionDialogFromIntent(intent);
+        boolean chat=intent.getBooleanExtra("right",false);
+        L.e(TAG,"chat="+chat);
+        if(chat){
+            layoutTabhost.setChecked(0);
+        }
     }
 
     /**
