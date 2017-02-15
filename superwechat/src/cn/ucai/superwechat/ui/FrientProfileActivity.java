@@ -131,5 +131,6 @@ public class FrientProfileActivity extends BaseActivity {
     @OnClick(R.id.tv_send_msg)
     public void sendMsg() {
         MFGT.gotoChatActivity(this,user);
+        MFGT.finish(this);
     }
 }

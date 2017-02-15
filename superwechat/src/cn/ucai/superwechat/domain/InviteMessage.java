@@ -29,7 +29,7 @@ public class InviteMessage {
 	private String avatarTime;
 
 	public String getAvatarSuffix() {
-		return avatarSuffix;
+		return avatarSuffix==null?".jpg":avatarSuffix;
 	}
 
 	public void setAvatarSuffix(String avatarSuffix) {
@@ -150,7 +150,7 @@ public class InviteMessage {
 		GROUPINVITATION_DECLINED
 	}
 	public String getAvatar(){
-		String path = "http://101.251.196.90:8000/SuperWeChatServerV2.0/downloadAvatar?name_or_hxid="+getFrom()+"&avatarType=user_avatar&m_avatar_suffix="+getAvatarSuffix();
+		String path = "http://101.251.196.90:8000/SuperWeChatServerV2.0/downloadAvatar?name_or_hxid="+getFrom()+"&avatarType=user_avatar&m_avatar_suffix="+getAvatarSuffix()+"&updatetime="+getAvatarTime();;
 		L.e("uu","path===="+path);
 		return path;
 	}
