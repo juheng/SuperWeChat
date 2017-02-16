@@ -75,6 +75,9 @@ public class EaseUserUtils {
                 //use default avatar
                 Glide.with(context).load(user.getAvatar()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ease_default_avatar).into(imageView);
             }
+        }else if(username!=null){
+            user=new User(username);
+            user.getAvatar();
         }else{
             Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
         }
