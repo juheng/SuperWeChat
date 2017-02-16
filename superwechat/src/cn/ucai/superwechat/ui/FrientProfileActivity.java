@@ -1,10 +1,13 @@
 package cn.ucai.superwechat.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.User;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 
@@ -132,5 +135,11 @@ public class FrientProfileActivity extends BaseActivity {
     public void sendMsg() {
         MFGT.gotoChatActivity(this,user);
         MFGT.finish(this);
+    }
+    @OnClick(R.id.tv_send_video)
+    public void sendVideo() {
+            startActivity(new Intent(this, VideoCallActivity.class)
+                    .putExtra("username", user.getMUserName())
+                    .putExtra("isComingCall", false));
     }
 }
