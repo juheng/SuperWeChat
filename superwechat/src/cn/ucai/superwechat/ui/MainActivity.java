@@ -477,30 +477,25 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         } else {
             unreadLabel.setVisibility(View.INVISIBLE);
         }*/
-        L.e(TAG,"updateUnreadLabel(),count=========="+count);
-        if (count > 1) {
-            layoutTabhost.setUnreadCount(1, count);
-        }else if(count==1){
-            layoutTabhost.setHasNew(1,true);
-        } else {
-           layoutTabhost.setHasNew(1,false);
-        }
     }
 
     /**
      * update the total unread count
      */
     public void updateUnreadAddressLable() {
-      /*  runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             public void run() {
                 int count = getUnreadAddressCountTotal();
-                if (count > 0) {
-                    unreadAddressLable.setVisibility(View.VISIBLE);
+                L.e(TAG,"updateUnreadLabel(),count=========="+count);
+                if (count > 1) {
+                    layoutTabhost.setUnreadCount(1, count);
+                }else if(count==1){
+                    layoutTabhost.setHasNew(1,true);
                 } else {
-                    unreadAddressLable.setVisibility(View.INVISIBLE);
+                    layoutTabhost.setHasNew(1,false);
                 }
             }
-        });*/
+        });
 
     }
 

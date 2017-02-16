@@ -6,9 +6,12 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import cn.ucai.superwechat.R;
+import cn.ucai.superwechat.db.InviteMessgeDao;
+import cn.ucai.superwechat.domain.InviteMessage;
 import cn.ucai.superwechat.runtimepermissions.PermissionsManager;
 import cn.ucai.superwechat.utils.MFGT;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.util.EasyUtils;
 
@@ -32,7 +35,7 @@ public class ChatActivity extends BaseActivity{
         //pass parameters to chat fragment
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
-        
+
     }
     
     @Override

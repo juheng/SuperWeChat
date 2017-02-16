@@ -35,6 +35,7 @@ public class ConversationListFragment extends EaseConversationListFragment{
         View errorView = (LinearLayout) View.inflate(getActivity(),R.layout.em_chat_neterror_item, null);
         errorItemContainer.addView(errorView);
         errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
+        hideTitleBar();
     }
     
     @Override
@@ -126,6 +127,8 @@ public class ConversationListFragment extends EaseConversationListFragment{
             deleteMessage = true;
         } else if (item.getItemId() == R.id.delete_conversation) {
             deleteMessage = false;
+        }else{
+            return false;
         }
     	EMConversation tobeDeleteCons = conversationListView.getItem(((AdapterContextMenuInfo) item.getMenuInfo()).position);
     	if (tobeDeleteCons == null) {
