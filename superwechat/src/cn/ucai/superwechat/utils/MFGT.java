@@ -94,7 +94,7 @@ public class MFGT {
         startActivity(activity,new Intent(activity,MainActivity.class).putExtra("right",true));
     }
 
-    public static void gotoUserProfileActivity(Activity activity, String username) {
-        startActivity(activity,new Intent(activity,UserProfileActivity.class).putExtra("username",username));
+    public static void gotoUserProfileActivity(Activity activity) {
+        startActivity(activity,UserProfileActivity.class);
     }
 }
