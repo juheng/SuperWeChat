@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -123,4 +124,23 @@ public class EaseUserUtils {
         }
     }
 
+    public static  String getGroupAvatarPath(String hxid){
+        String path="http://101.251.196.90:8000/SuperWeChatServerV2.0/downloadAvatar?name_or_hxid=" +
+                hxid+"&avatarType=group_icon&m_avatar_suffix=.jpg";
+        return path;
+    }
+    public static void setAppGroupAvatar(Context context, String hxid, ImageView imageView){
+        if(hxid != null ){
+            try {
+                Log.e("sss","path======================"+getGroupAvatarPath(hxid));
+                int avatarResId = Integer.parseInt(getGroupAvatarPath(hxid));
+                Glide.with(context).load(avatarResId).into(imageView);
+            } catch (Exception e) {
+                //use default avatar
+                Glide.with(context).load(getGroupAvatarPath(hxid)).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ease_group_icon).into(imageView);
+            }
+        }else{
+            Glide.with(context).load(R.drawable.ease_group_icon).into(imageView);
+        }
+    }
 }
