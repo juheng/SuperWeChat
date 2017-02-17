@@ -119,4 +119,13 @@ public class NetDao {
                 .targetClass(String.class)
                 .execute(listener);
     }
+    public  static  void addGroupMembers(Context context, String memberName, String groupId,
+                                        OkHttpUtils.OnCompleteListener<String>listener){
+        OkHttpUtils<String>utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_GROUP_MEMBERS)
+                .addParam(I.Member.USER_NAME,memberName)
+                .addParam(I.Member.GROUP_HX_ID,groupId)
+                .targetClass(String.class)
+                .execute(listener);
+    }
 }
