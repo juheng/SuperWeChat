@@ -53,13 +53,11 @@ public class FrientProfileActivity extends BaseActivity {
         ivBack.setVisibility(View.VISIBLE);
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText("详细资料");
-        L.e(TAG, "======");
         initData();
     }
 
     private void initData() {
         user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
-        L.e(TAG, "user====" + user);
         if (user != null) {
             showUserInfo();
         } else {
@@ -101,7 +99,6 @@ public class FrientProfileActivity extends BaseActivity {
         nick.setText(user.getMUserNick());
         EaseUserUtils.setAppUserAvatarbyPath(this, user.getAvatar(), avatar);
         name.setText("微信号：" + user.getMUserName());
-        L.e(TAG, "nick====" + nick);
         if (isFirent()) {
             tvSendMsg.setVisibility(View.VISIBLE);
             tvSendVideo.setVisibility(View.VISIBLE);
@@ -112,7 +109,6 @@ public class FrientProfileActivity extends BaseActivity {
 
     private boolean isFirent() {
         User u = SuperWeChatHelper.getInstance().getAppContactList().get(user.getMUserName());
-        L.e(TAG, "u====" + u);
         if (u == null) {
             return false;
         } else {

@@ -113,10 +113,8 @@ public class AddContactActivity extends BaseActivity {
                     if (result != null) {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
-                            L.e(TAG,"USER1="+user.toString());
                             if (user != null) {
                                 isSuccess=true;
-                                L.e(TAG,"USER2="+user.toString());
                                 MFGT.gotoFirent(AddContactActivity.this, user);
                             }
                         }

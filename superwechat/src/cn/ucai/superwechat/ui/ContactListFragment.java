@@ -13,15 +13,38 @@
  */
 package cn.ucai.superwechat.ui;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.domain.User;
+import com.hyphenate.easeui.ui.EaseContactListFragment;
+import com.hyphenate.util.EMLog;
+import com.hyphenate.util.NetUtils;
+
 import java.util.Hashtable;
 import java.util.Map;
 
-import com.hyphenate.chat.EMClient;
-
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.superwechat.Constant;
+import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.SuperWeChatHelper;
 import cn.ucai.superwechat.SuperWeChatHelper.DataSyncListener;
-import cn.ucai.superwechat.R;
 import cn.ucai.superwechat.db.InviteMessgeDao;
 import cn.ucai.superwechat.db.UserDao;
 import cn.ucai.superwechat.domain.Result;
@@ -32,29 +55,8 @@ import cn.ucai.superwechat.utils.OkHttpUtils;
 import cn.ucai.superwechat.utils.ResultUtils;
 import cn.ucai.superwechat.widget.ContactItemView;
 
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.domain.User;
-import com.hyphenate.easeui.ui.EaseContactListFragment;
-import com.hyphenate.util.EMLog;
-import com.hyphenate.util.NetUtils;
-
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
-
 /**
  * contact list
- *
  */
 public class ContactListFragment extends EaseContactListFragment {
 
@@ -64,6 +66,7 @@ public class ContactListFragment extends EaseContactListFragment {
     private ContactInfoSyncListener contactInfoSyncListener;
     private View loadingView;
     private ContactItemView applicationItem;
+    private ContactItemView groupItem;
     private InviteMessgeDao inviteMessgeDao;
 
     @SuppressLint("InflateParams")
@@ -73,7 +76,9 @@ public class ContactListFragment extends EaseContactListFragment {
         @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.em_contacts_header, null);
         HeaderItemClickListener clickListener = new HeaderItemClickListener();
         applicationItem = (ContactItemView) headerView.findViewById(R.id.application_item);
+        groupItem = (ContactItemView) headerView.findViewById(R.id.group_item);
         applicationItem.setOnClickListener(clickListener);
+        groupItem.setOnClickListener(clickListener);
         listView.addHeaderView(headerView);
         //add loading view
         loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.em_layout_loading_data, null);
@@ -97,8 +102,10 @@ public class ContactListFragment extends EaseContactListFragment {
         }
         if (inviteMessgeDao.getUnreadMessagesCount() > 0) {
             applicationItem.showUnreadMsgView();
+            groupItem.showUnreadMsgView();
         } else {
             applicationItem.hideUnreadMsgView();
+            groupItem.hideUnreadMsgView();
         }
     }
 
@@ -180,17 +187,46 @@ public class ContactListFragment extends EaseContactListFragment {
         }
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
-    protected class HeaderItemClickListener implements OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.application_item:
+    /*@OnClick({R.id.application_item, R.id.group_item})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.application_item:
+                    L.e(TAG, "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
                     // 进入申请与通知页面
                     startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
                     break;
                 case R.id.group_item:
+                    L.e(TAG, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    // 进入群聊列表页面
+                    startActivity(new Intent(getActivity(), GroupsActivity.class));
+                    break;
+
+                default:
+                    break;
+        }
+    }*/
+
+
+   protected class HeaderItemClickListener implements OnClickListener {
+
+         @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.application_item:
+                    L.e(TAG, "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                    // 进入申请与通知页面
+                    startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
+                    break;
+                case R.id.group_item:
+                    L.e(TAG, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     // 进入群聊列表页面
                     startActivity(new Intent(getActivity(), GroupsActivity.class));
                     break;
@@ -251,7 +287,6 @@ public class ContactListFragment extends EaseContactListFragment {
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, User.class);
                     if (result != null && result.isRetMsg()) {
-                        L.e("remove","result======="+result);
                         UserDao dao = new UserDao(getActivity());
                         dao.deleteAppContact(tobeDeleteUser.getMUserName());
                         SuperWeChatHelper.getInstance().getAppContactList().remove(tobeDeleteUser.getMUserName());
@@ -309,7 +344,6 @@ public class ContactListFragment extends EaseContactListFragment {
     class ContactSyncListener implements DataSyncListener {
         @Override
         public void onSyncComplete(final boolean success) {
-            EMLog.d(TAG, "on contact list sync success:" + success);
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     getActivity().runOnUiThread(new Runnable() {

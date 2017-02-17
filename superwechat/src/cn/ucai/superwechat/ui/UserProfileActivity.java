@@ -120,11 +120,9 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
         NetDao.getUserInfoByUsername(this, username, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                L.e(TAG, "s=" + s);
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, User.class);
                     if (result != null && result.isRetMsg()) {
-                        L.e(TAG, "result=" + result.toString());
                         User user = (User) result.getRetData();
                         SuperWeChatHelper.getInstance().saveAppContact(user);
                         tvUserinfoNick.setText(user.getMUserNick());
@@ -177,7 +175,6 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
             String imagePath = EaseImageUtils.getImagePath(EMClient.getInstance().getCurrentUser()
                     + I.AVATAR_SUFFIX_JPG);
             File file = new File(imagePath);//将要保存图片的路径
-            L.e("file path=" + file.getAbsolutePath());
             try {
                 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100,bos);
@@ -197,13 +194,11 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 
     private void updateRemoteNick(final String nickName) {
         dialog = ProgressDialog.show(this, getString(R.string.dl_update_nick), getString(R.string.dl_waiting));
-        L.e(TAG, "nickName=" + nickName);
         NetDao.updateNick(this, EMClient.getInstance().getCurrentUser(), nickName, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 dialog.dismiss();
                 if (s != null) {
-                    L.e(TAG, "S=" + s);
                     Result result = ResultUtils.getResultFromJson(s, User.class);
                     if (result != null && result.isRetMsg()) {
                         User user = (User) result.getRetData();
@@ -268,7 +263,6 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
                 if (data == null || data.getData() == null) {
                     return;
                 }
-                L.e(TAG,"data======"+data.toString());
                 startPhotoZoom(data.getData());
                 break;
             case REQUESTCODE_CUTTING:
@@ -314,16 +308,13 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 
     private void uploadAppUserAvatar(Intent picdata) {
         File file=saveBitmapFile(picdata);
-        L.e(TAG,"file="+file);
         if(file==null){
             return;
         }
-        L.e(TAG,"file="+file.getAbsolutePath());
         dialog=ProgressDialog.show(this,getString(R.string.dl_update_photo),getString(R.string.dl_waiting));
         NetDao.updateAvatar(this, EMClient.getInstance().getCurrentUser(), file, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-                L.e(TAG,"s="+s);
                 Result result=ResultUtils.getResultFromJson(s,User.class);
                 if(result!=null){
                     if(result.isRetMsg()){

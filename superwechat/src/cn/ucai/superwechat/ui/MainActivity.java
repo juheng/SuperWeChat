@@ -481,7 +481,6 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         runOnUiThread(new Runnable() {
             public void run() {
                 int count = getUnreadAddressCountTotal();
-                L.e(TAG,"updateUnreadLabel(),count=========="+count);
                 if (count > 1) {
                     layoutTabhost.setUnreadCount(1, count);
                 }else if(count==1){
@@ -635,7 +634,6 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         super.onNewIntent(intent);
         showExceptionDialogFromIntent(intent);
         boolean chat=intent.getBooleanExtra("right",false);
-        L.e(TAG,"chat="+chat);
         if(chat){
             layoutTabhost.setChecked(0);
         }
