@@ -221,12 +221,10 @@ public class ContactListFragment extends EaseContactListFragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.application_item:
-                    L.e(TAG, "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
                     // 进入申请与通知页面
                     startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
                     break;
                 case R.id.group_item:
-                    L.e(TAG, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                     // 进入群聊列表页面
                     startActivity(new Intent(getActivity(), GroupsActivity.class));
                     break;
