@@ -217,6 +217,18 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 			case REQUEST_CODE_EDIT_GROUPNAME: //修改群名称
 				final String returnData = data.getStringExtra("data");
+				NetDao.updateGroupName(GroupDetailsActivity.this, group.getGroupName(), groupId,
+						new OkHttpUtils.OnCompleteListener<String>() {
+							@Override
+							public void onSuccess(String s) {
+								L.e(TAG,"updateGroupName  s="+s);
+							}
+
+							@Override
+							public void onError(String error) {
+
+							}
+						});
 				if(!TextUtils.isEmpty(returnData)){
 					progressDialog.setMessage(st5);
 					progressDialog.show();

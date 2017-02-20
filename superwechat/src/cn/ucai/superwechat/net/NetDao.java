@@ -138,5 +138,14 @@ public class NetDao {
                 .targetClass(String.class)
                 .execute(listener);
     }
+    public  static  void updateGroupName(Context context, String groupName, String groupId,
+                                        OkHttpUtils.OnCompleteListener<String>listener){
+        OkHttpUtils<String>utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_GROUP_NAME)
+                .addParam(I.Group.NAME,groupName)
+                .addParam(I.Group.GROUP_ID,groupId)
+                .targetClass(String.class)
+                .execute(listener);
+    }
 
 }
