@@ -97,7 +97,7 @@ public class FrientProfileActivity extends BaseActivity {
 
     private void showUserInfo() {
         nick.setText(user.getMUserNick());
-        EaseUserUtils.setAppUserAvatarbyPath(this, user.getAvatar(), avatar);
+        EaseUserUtils.setAppUserAvatarbyPath(this, user.getAvatar(), avatar,null);
         name.setText("微信号：" + user.getMUserName());
         if (isFirent()) {
             tvSendMsg.setVisibility(View.VISIBLE);

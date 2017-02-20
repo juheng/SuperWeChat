@@ -97,7 +97,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 				holder.groupContainer.setVisibility(View.GONE);
 			}
 
-			EaseUserUtils.setAppUserAvatarbyPath(context,msg.getAvatar(),holder.avator);
+			EaseUserUtils.setAppUserAvatarbyPath(context,msg.getAvatar(),holder.avator,msg.getGroupId());
 			holder.reason.setText(msg.getReason());
 			holder.name.setText(msg.getFrom());
 			holder.nick.setText(msg.getUsernick());

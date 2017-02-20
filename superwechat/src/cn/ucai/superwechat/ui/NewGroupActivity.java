@@ -153,7 +153,7 @@ public class NewGroupActivity extends BaseActivity {
                 final String groupName = groupNameEditText.getText().toString().trim();
                 String desc = introductionEditText.getText().toString();
                 String[] members = data.getStringArrayExtra("newmembers");
-                L.e(TAG,"members="+members);
+                L.e(TAG, "members=" + members);
                 try {
                     EMGroupOptions option = new EMGroupOptions();
                     option.maxUsers = 200;
@@ -166,8 +166,8 @@ public class NewGroupActivity extends BaseActivity {
                     } else {
                         option.style = memberCheckbox.isChecked() ? EMGroupStyle.EMGroupStylePrivateMemberCanInvite : EMGroupStyle.EMGroupStylePrivateOnlyOwnerInvite;
                     }
-                    EMGroup group=EMClient.getInstance().groupManager().createGroup(groupName, desc, members, reason, option);
-                    createAppGroup(group,members);
+                    EMGroup group = EMClient.getInstance().groupManager().createGroup(groupName, desc, members, reason, option);
+                    createAppGroup(group, members);
                     runOnUiThread(new Runnable() {
                         public void run() {
                             progressDialog.dismiss();
@@ -200,7 +200,7 @@ public class NewGroupActivity extends BaseActivity {
                             L.e(TAG, "group.getMemberCount=" + group.getMemberCount());
                             L.e(TAG, "group.getMembers=" + group.getMembers());
                             if (group.getMemberCount() > 1) {
-                                addGroupMembers(group,members);
+                                addGroupMembers(group, members);
                             } else {
 
                                 createGroupSuccess();
@@ -234,7 +234,7 @@ public class NewGroupActivity extends BaseActivity {
         });
     }
 
-    private void addGroupMembers(EMGroup group,String [] members) {
+    private void addGroupMembers(EMGroup group, String[] members) {
         NetDao.addGroupMembers(this, getGroupMembers(members), group.getGroupId(),
                 new OkHttpUtils.OnCompleteListener<String>() {
                     @Override
@@ -262,15 +262,16 @@ public class NewGroupActivity extends BaseActivity {
                     }
                 });
     }
-    private String getGroupMembers(String[] members){
-        String membersStr="";
-        if(members.length>0){
-            for(String s:members){
 
-                membersStr +=s+"";
+    private String getGroupMembers(String[] members) {
+        String membersStr = "";
+        if (members.length > 0) {
+            for (String s : members) {
+
+                    membersStr += s + "";
             }
         }
-        L.e(TAG,"getGroupMembers,s="+membersStr);
+        L.e(TAG, "getGroupMembers,s=" + membersStr);
         return membersStr;
     }
 

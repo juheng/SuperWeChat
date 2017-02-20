@@ -1,6 +1,7 @@
 package cn.ucai.superwechat.net;
 
 import android.content.Context;
+import android.view.View;
 
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.easeui.domain.User;
@@ -128,4 +129,5 @@ public class NetDao {
                 .targetClass(String.class)
                 .execute(listener);
     }
+
 }

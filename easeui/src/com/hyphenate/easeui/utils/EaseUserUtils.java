@@ -83,7 +83,11 @@ public class EaseUserUtils {
             Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
         }
     }
-    public static void setAppUserAvatarbyPath(Context context, String path, ImageView imageView){
+    public static void setAppUserAvatarbyPath(Context context, String path, ImageView imageView,String groupId){
+        int default_avatar=R.drawable.default_hd_avatar;
+        if(groupId!=null){
+            default_avatar=R.drawable.ease_group_icon;
+        }
         if(path != null ){
             try {
                 int avatarResId = Integer.parseInt(path);
@@ -93,7 +97,7 @@ public class EaseUserUtils {
                 Glide.with(context).load(path).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ease_default_avatar).into(imageView);
             }
         }else{
-            Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+            Glide.with(context).load(default_avatar).into(imageView);
         }
     }
 
