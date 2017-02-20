@@ -320,6 +320,17 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 	public void exitDeleteGroup(View view) {
 		startActivityForResult(new Intent(this, ExitGroupDialog.class).putExtra("deleteToast", getString(R.string.dissolution_group_hint)),
 				REQUEST_CODE_EXIT_DELETE);
+		NetDao.deleteGroup(GroupDetailsActivity.this, groupId, new OkHttpUtils.OnCompleteListener<String>() {
+			@Override
+			public void onSuccess(String s) {
+				L.e(TAG,"deleteGroup  s="+s);
+			}
+
+			@Override
+			public void onError(String error) {
+
+			}
+		});
 
 	}
 
