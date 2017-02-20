@@ -136,7 +136,6 @@ public class EaseUserUtils {
     public static void setAppGroupAvatar(Context context, String hxid, ImageView imageView){
         if(hxid != null ){
             try {
-                Log.e("sss","path======================"+getGroupAvatarPath(hxid));
                 int avatarResId = Integer.parseInt(getGroupAvatarPath(hxid));
                 Glide.with(context).load(avatarResId).into(imageView);
             } catch (Exception e) {
